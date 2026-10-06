@@ -153,7 +153,7 @@ public static class ClinicaData
             Nombre = "Paquete Chequeo Preventivo Ejecutivo Anual",
             CategoriaId = 5,
             Categoria = "Paquetes Preventivos",
-            Laboratorio = "Clínica San Gabriel",
+            Laboratorio = "Clínica Dev Forence",
             Presentacion = "Voucher Digital Completo (6 Exámenes + 2 Consultas)",
             Precio = 290.00m,
             Descuento = 25,
