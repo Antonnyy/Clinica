@@ -1,6 +1,87 @@
-@ClinicaApi_HostAddress = http://localhost:5232
+@baseUrl = https://cl-nica.onrender.com
+# Para pruebas locales descomenta la siguiente línea:
+# @baseUrl = http://localhost:5005
 
-GET {{ClinicaApi_HostAddress}}/weatherforecast/
+### 1. GET: Consultar todos los productos (Catálogo)
+GET {{baseUrl}}/api/productos
 Accept: application/json
 
-###
+### 2. GET: Consultar producto por ID
+GET {{baseUrl}}/api/productos/1
+Accept: application/json
+
+### 3. POST: Registrar nuevo producto clínico (CREATE)
+POST {{baseUrl}}/api/productos
+Content-Type: application/json
+
+{
+  "codigo": "CLI-PRD-009",
+  "nombre": "Nebulizador Ultrasónico Portátil",
+  "categoria": "Equipos de Monitoreo",
+  "laboratorio": "Philips Respironics",
+  "presentacion": "Kit con mascarilla adulto y pediátrica",
+  "precio": 149.90,
+  "stock": 15,
+  "descuento": 10,
+  "requiereReceta": false,
+  "imagen": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80",
+  "descripcion": "Nebulizador silencioso de alta eficiencia para tratamientos respiratorios en casa."
+}
+
+### 4. PUT: Actualizar producto existente (UPDATE)
+PUT {{baseUrl}}/api/productos/9
+Content-Type: application/json
+
+{
+  "codigo": "CLI-PRD-009",
+  "nombre": "Nebulizador Ultrasónico Portátil PLUS",
+  "categoria": "Equipos de Monitoreo",
+  "laboratorio": "Philips Respironics",
+  "presentacion": "Kit Pro con mascarilla y boquilla",
+  "precio": 139.00,
+  "stock": 12,
+  "descuento": 15,
+  "requiereReceta": false,
+  "imagen": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80",
+  "descripcion": "Versión mejorada con batería recargable y apagado automático."
+}
+
+### 5. DELETE: Eliminar producto (DELETE)
+DELETE {{baseUrl}}/api/productos/9
+Accept: application/json
+
+### 6. PRUEBA DE VALIDACIÓN: Código vacío (Debe responder 400 Bad Request)
+POST {{baseUrl}}/api/productos
+Content-Type: application/json
+
+{
+  "codigo": "",
+  "nombre": "Producto Invalido",
+  "precio": 50.0
+}
+
+### 7. PRUEBA DE VALIDACIÓN: Precio negativo (Debe responder 400 Bad Request)
+POST {{baseUrl}}/api/productos
+Content-Type: application/json
+
+{
+  "codigo": "CLI-ERR-001",
+  "nombre": "Producto con error",
+  "precio": -25.0
+}
+
+### 8. GET: Consultar Categorías
+GET {{baseUrl}}/api/categorias
+Accept: application/json
+
+### 9. GET: Consultar Servicios Médicos
+GET {{baseUrl}}/api/servicios
+Accept: application/json
+
+### 10. GET: Consultar Médicos
+GET {{baseUrl}}/api/medicos
+Accept: application/json
+
+### 11. GET: Consultar Promociones
+GET {{baseUrl}}/api/promociones
+Accept: application/json

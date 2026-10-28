@@ -1,0 +1,184 @@
+{
+  "info": {
+    "_postman_id": "c1f7a09d-83b6-4f47-92e1-95e26b2374b8",
+    "name": "Clínica Dev Forence - CRUD API REST",
+    "description": "Colección completa de pruebas para la API REST de la Clínica Dev Forence en ASP.NET Core (.NET 8).\nIncluye operaciones CRUD (GET, POST, PUT, DELETE) y validaciones.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cl-nica.onrender.com",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. GET - Todos los Productos",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/productos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "productos"]
+        },
+        "description": "Obtiene la lista completa de productos clínicos desde la API."
+      }
+    },
+    {
+      "name": "2. GET - Producto por ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/productos/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "productos", "1"]
+        },
+        "description": "Obtiene los detalles del producto con ID 1."
+      }
+    },
+    {
+      "name": "3. POST - Registrar Nuevo Producto (CREATE)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"CLI-PRD-009\",\n  \"nombre\": \"Nebulizador Ultrasónico Portátil\",\n  \"categoria\": \"Equipos de Monitoreo\",\n  \"laboratorio\": \"Philips Respironics\",\n  \"presentacion\": \"Kit con mascarilla adulto y pediátrica\",\n  \"precio\": 149.90,\n  \"stock\": 15,\n  \"descuento\": 10,\n  \"requiereReceta\": false,\n  \"imagen\": \"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80\",\n  \"descripcion\": \"Nebulizador silencioso de alta eficiencia para tratamientos respiratorios en casa.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/productos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "productos"]
+        },
+        "description": "Registra un nuevo producto. Asigna ID autoincremental y responde 201 Created."
+      }
+    },
+    {
+      "name": "4. PUT - Actualizar Producto (UPDATE)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"CLI-PRD-009\",\n  \"nombre\": \"Nebulizador Ultrasónico Portátil PLUS\",\n  \"categoria\": \"Equipos de Monitoreo\",\n  \"laboratorio\": \"Philips Respironics\",\n  \"presentacion\": \"Kit Pro con mascarilla y boquilla\",\n  \"precio\": 139.00,\n  \"stock\": 12,\n  \"descuento\": 15,\n  \"requiereReceta\": false,\n  \"imagen\": \"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80\",\n  \"descripcion\": \"Versión mejorada con batería recargable y apagado automático.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/productos/9",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "productos", "9"]
+        },
+        "description": "Actualiza los datos del producto con ID 9."
+      }
+    },
+    {
+      "name": "5. DELETE - Eliminar Producto (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/productos/9",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "productos", "9"]
+        },
+        "description": "Elimina el producto con ID 9 de la lista en memoria."
+      }
+    },
+    {
+      "name": "6. VALIDACIÓN - Código Vacío (400 Bad Request)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"\",\n  \"nombre\": \"Producto Invalido\",\n  \"precio\": 20.0\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/productos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "productos"]
+        },
+        "description": "Prueba de validación: debe responder 400 Bad Request indicando que el código es obligatorio."
+      }
+    },
+    {
+      "name": "7. VALIDACIÓN - Precio Negativo (400 Bad Request)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"CLI-TEST-001\",\n  \"nombre\": \"Producto Negativo\",\n  \"precio\": -15.50\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/productos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "productos"]
+        },
+        "description": "Prueba de validación: debe responder 400 Bad Request indicando que el precio no puede ser negativo."
+      }
+    },
+    {
+      "name": "8. GET - Categorías",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/categorias",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "categorias"]
+        }
+      }
+    },
+    {
+      "name": "9. GET - Servicios Médicos",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/servicios",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "servicios"]
+        }
+      }
+    },
+    {
+      "name": "10. GET - Médicos",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/medicos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "medicos"]
+        }
+      }
+    },
+    {
+      "name": "11. GET - Promociones",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/promociones",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "promociones"]
+        }
+      }
+    }
+  ]
+}
