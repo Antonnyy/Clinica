@@ -9,5 +9,12 @@ namespace ClinicaApi.Controllers;
 public class ServiciosController : ControllerBase
 {
     [HttpGet]
-    public ActionResult<IEnumerable<Servicio>> Get() => ClinicaData.Servicios;
+    public ActionResult<IEnumerable<Servicio>> GetAll() => ClinicaData.Servicios;
+
+    [HttpGet("{id:int}")]
+    public ActionResult<Servicio> GetById(int id)
+    {
+        var item = ClinicaData.Servicios.FirstOrDefault(x => x.Id == id);
+        return item == null ? NotFound(new { mensaje = $"No existe servicio con ID {id}" }) : Ok(item);
+    }
 }

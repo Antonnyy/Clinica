@@ -9,5 +9,12 @@ namespace ClinicaApi.Controllers;
 public class CategoriasController : ControllerBase
 {
     [HttpGet]
-    public ActionResult<IEnumerable<Categoria>> Get() => ClinicaData.Categorias;
+    public ActionResult<IEnumerable<Categoria>> GetAll() => ClinicaData.Categorias;
+
+    [HttpGet("{id:int}")]
+    public ActionResult<Categoria> GetById(int id)
+    {
+        var item = ClinicaData.Categorias.FirstOrDefault(x => x.Id == id);
+        return item == null ? NotFound(new { mensaje = $"No existe categoría con ID {id}" }) : Ok(item);
+    }
 }
